@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var todo = require('./routes/todo');
-var port = 3000;
+var port = 5000;
 
 app.use(express.static('server/public'));
 
