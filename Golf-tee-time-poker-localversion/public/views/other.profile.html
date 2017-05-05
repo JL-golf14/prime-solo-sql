@@ -1,0 +1,27 @@
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="/home"> Player Home </a></li>
+      <li ng-if="profile.admin"><a href="/adminLeague"> Admin Home </a></li>
+      <li><a href="/playerRoster"> Player Roster </a></li>
+      <li class=""><button button id="logoutBtn" class="navbar-btn btn-primary btn pull-right" ng-click="profile.logout()"><span class="glyphicon glyphicon-log-out"></span> Sign Out</button></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="adminSection col-xs-8 col-xs-offset-2">
+  <div id="playerInfo" class="form-group row">
+    <p>First Name: {{ profile.first_name }}</p>
+    <p>Last Name: {{ profile.last_name }}</p>
+    <p>Username: {{ profile.username }}</p>
+    <p>LinkedIn URL: {{ profile.linkedin }}</p>
+    <p id="personalBio">Personal Bio: {{ profile.bio }}</p>
+    <div ng-if="profile.thisPlayer">
+      <a href="/edit.profile">Edit Profile...</a>
+    </div>
+  </div>
+  <div id="profileImage">
+    <img class="" ng-src="/../uploads/{{profile.username}}.jpg" alt=""/>
+  </div>
+</div>

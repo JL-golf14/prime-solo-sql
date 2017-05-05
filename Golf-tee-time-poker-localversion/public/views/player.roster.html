@@ -1,0 +1,47 @@
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="/home"> Player Home </a></li>
+      <li ng-if="admin.admin"><a href="/adminLeague"> Admin Home </a></li>
+      <li class="active"><a href="/playerRoster"> Player Roster </a></li>
+      <li><button button id="logoutBtn" class="navbar-btn btn-primary btn pull-right" ng-click="admin.logout()"><span class="glyphicon glyphicon-log-out"></span> Sign Out</button></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="adminSection col-xs-12">
+  <h2>Players</h2>
+  <div ng-if="admin.admin" class="col-sm-12">
+    <button class="btn btn-primary" ng-click="admin.showEmailInput()">Invite New Player</button>
+    <form ng-show="admin.emailInput">
+      <input type="text" placeholder="New Player Email" ng-model="admin.newPlayerEmail"/><button ng-click="admin.inviteNewPlayer(admin.newPlayerEmail)" class="btn btn-primary">Send Invite Email</button>
+    </form>
+  </div>
+  <div class="col-sm-4 col-sm-offset-8">
+    <input type="text" class="form-control" ng-change="admin.jumpToUser()" ng-model="admin.username" data="admin.autoCompleteArray" placeholder="Search for a player"></input>
+
+  </div>
+  <div class="col-sm-8 overflow largeTable">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+          <th>Email Address</th>
+          <th ng-if="admin.admin">Edit?</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr ng-repeat="onePlayer in admin.playerRosterList">
+          <td>{{onePlayer.first_name}}</td>
+          <td>{{onePlayer.last_name}}</td>
+          <td><button class="btn btn-link" ng-click="admin.showPlayerProfile(onePlayer.id)">{{onePlayer.username}}</button></td>
+          <td>{{onePlayer.email}}</td>
+          <td ng-if="admin.admin"><button ng-click="admin.showEditProfile(onePlayer.id)" type ="submit" class="btn btn-default">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

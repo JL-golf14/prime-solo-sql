@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>home</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/home"> Player Home </a></li>
+          <li ng-if="home.admin"><a href="/adminLeague"> Admin Home </a></li>
+          <li><a href="/playerRoster"> Player Roster </a></li>
+          <li class=""><button id="logoutBtn" class="navbar-btn btn-primary btn pull-right" ng-click="home.logout()"><span class="glyphicon glyphicon-log-out"></span> Sign Out</button></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="col-md-7 adminSection" id="blogDigest">
+      <h2>League Updates</h2>
+      <div id="blogs">
+        <div class="updateDiv" ng-repeat="digest in home.digestList">
+          <div class="">
+            <h4>{{digest.date}}</h4>
+            <p>{{digest.entry}}</p>
+          </div>
+        </div>
+      </div>
+
+      <nav aria-label="Page navigation" class="col-sm-10 text-center pageNav">
+        <ul class="pagination">
+          <li ng-click="home.prevPage()">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li ng-repeat="array in home.digestArray" ng-click="home.jumpToPage(array, home.digestArray.indexOf(array))"><a href="#">{{home.digestArray.indexOf(array)+1}}</a></li>
+          <li ng-click="home.nextPage()">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="col-md-5" id="playerList">
+      <nav class="navbar navbar-default gameNavbar">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li ng-click="home.getGameList(); home.addActive()"><a id="selected"  href="/home"> Game 1 </a></li>
+            <li ng-click="home.getGame2List(); home.addActive()"><a href="/home"> Game 2 </a></li>
+            <li ng-click="home.getLeaderboard(home.currentLeague); home.addActive(); home.addActive3()"><a href="/home"> Leaderboard </a></li>
+          </ul>
+        </div>
+      </nav>
+      <div>
+        <nav class="navbar navbar-default gameNavbar">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav">
+              <li ng-if="home.showGames" ng-click="home.showPlayerList(); home.addActive2()"><a id="selected2" class="regulars" href="/home"> Registered Players </a></li>
+              <li ng-if="home.showGames" ng-click="home.showAlternateList(); home.addActive2()"><a href="/home" class="alternates"> Alternates </a></li>
+              <li ng-show="home.showLeaderboard" ng-click="home.showLeaderboard1(); home.addActive3()"><a class="league1" href="/home"> League 1 </a></li>
+              <li ng-show="home.showLeaderboard" ng-click="home.showLeaderboard2(); home.addActive3()"><a class="league2" href="/home"> League 2 </a></li>
+              <li><button ng-if="home.notAdmin" class="btn btn-danger removeButton navbar-btn" ng-click="home.userRemoveAlert()">Leave Game</button></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="playerSection">
+        <ol  ng-if="home.showPlayers">
+          <li ng-repeat="player in home.playerList">{{player.name}}<button ng-if="home.admin" class="btn btn-danger btn-xs noMarginPadding removeButton" ng-click="home.adminRemoveAlert(player.users_id)">Remove from Game</button></li>
+        </ol>
+        <ol ng-if="home.showAlternates">
+          <li ng-repeat="alternate in home.alternates">{{alternate.name}}<button ng-if="home.admin" class="btn btn-danger btn-xs noMarginPadding removeButton" ng-click="home.adminRemoveAlert(alternate.users_id)">Remove from Game</button></li>
+        </ol>
+        <ol  ng-if="home.showLeaderboard">
+          <table class="table table-striped col-xs-12" id="playerTable">
+            <thead>
+              <tr>
+                <th class="col-xs-2">Name</th>
+                <th class="col-xs-2">Points</th>
+              </tr>
+            </thead>
+              <tbody>
+              <tr ng-repeat="player in home.leaderboard">
+                <td class="col-xs-2">{{player.name}}</td>
+                <td class="col-xs-2">{{player.points}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ol>
+      </div>
+    </div>
+  </body>
+</html>

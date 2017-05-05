@@ -1,0 +1,26 @@
+<h1 class="headCtr">Tee Time Outsource</h1>
+
+<h3 align="center">no passwords for now just first name is good</h3>
+
+<div id="loginSection">
+  <form class="form-horizontal col-xs-12 col-xs-6 col-xs-offset-3 well" ng-submit="login.login()">
+    <div class="form-group row">
+      <label class="control-label col-xs-1"><span class="glyphicon glyphicon-user"></span></label>
+      <div class="col-xs-11">
+        <input class="form-control" type="text" ng-model="login.username" placeholder="Username">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="control-label col-xs-1"><span class="glyphicon glyphicon-lock"></span></label>
+      <div class="col-xs-11">
+        <input class="form-control" type="password" ng-model="login.password" placeholder="Password">
+      </div>
+    </div>
+    <div class="col-xs-offset-5 col-xs-10">
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span> Sign In</button>
+    </div>
+  </form>
+</div>
+<div id="loginBody">
+  <img id="cardsImage" src="../styles/download.jpeg" alt="">
+</div>
