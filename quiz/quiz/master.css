@@ -1,0 +1,11 @@
+h1 {
+    color: green;
+}
+
+.header.logo.logo-emphasis {
+    color: red;
+}
+
+#sideboard h1 {
+    color: blue;
+}
