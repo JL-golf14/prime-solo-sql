@@ -1,18 +1,80 @@
-<template lang="pug">
-	.container
-		h2.title {{ "Demo" | i18n }}
+<template>
+<div class="animated delay 4s bounceOutLeft" ng-if="sc.amazonData.length === 0">
+    <h1>Log in to be able to save tracked items.</h1>
+</div>
 
-		h3 {{ count }}
-		button.button.success(@click="inc") 
-			span.icon
-				i.fa.fa-arrow-up 
-			span {{ "Increment" | i18n }}
-		br
-		br
-		button.button.warning(@click="dec") 
-			span
-				i.fa.fa-arrow-up  
-			span {{ "Decrement" | i18n }}
+  <table>
+      <tr>
+
+        <th class="dropdownbox">
+            <select class="selects" ng-model="sc.amazonProperty.ProductGroup">
+
+        <option value="" class="btn dropPlaceholder">Product Category</option>
+
+        <option>Apparel</option>
+        <option>Automotive</option>
+        <option>Baby</option>
+        <option>Beauty</option>
+        <option>Books</option>
+        <option>Electronics</option>
+        <option>Jewelry</option>
+        <option>GourmetFood</option>
+        <option>Photo</option>
+        <option>Shoes</option>
+        <option>KindleStore</option>
+        <option>Kitchen</option>
+        <option>Music</option>
+        <option>Grocery</option>
+        <option>MusicalInstruments</option>
+        <option>HomeGarden</option>
+        <option>OfficeProducts</option>
+        <option>PCHardware</option>
+        <option>PetSupplies</option>
+        <option>OutdoorLiving</option>
+        <option>Industrial</option>
+        <option>Toys</option>
+        <option>OutdoorLiving</option>
+        <option>Software</option>
+        <option>Wireless</option>
+        <option>SportingGoods</option>
+        <option>Tools</option>
+        <option>VideoGames</option>
+        <option>WirelessAccessories</option>
+      </th>
+      <th class="inputHeader">
+        <input class="input" ng-model="sc.amazonProperty.amazonSearch" placeholder="what to look for?">
+      </th>
+      <th class="lookHeader">
+        <button sweet-on-confirm="checkConfirm()" id="login-submit" tabindex="4" class="searchAZ" ng-click="sc.addSearch()">Search Amazon</button>
+      </th>
+    </tr>
+  </table>
+  {{response}}
+
+  <table class="table">
+    <tbody >
+      <tr>
+        <td class="deal_top_inner jeremy-custom" ng-repeat="item in sc.amazonData.data">
+          <div class="title">
+            {{item.ItemAttributes["0"].Title["0"]}}
+          </div>
+          <div class="asin">{{item.ASIN["0"]}}</div>
+          <br>
+          <div class="pricess">
+            {{(item.Offers["0"].Offer["0"].OfferListing["0"].Price["0"].Amount["0"]/100) | currency}}
+          </div>
+          <img ng-src='{{item.ImageSets["0"].ImageSet["0"].MediumImage["0"].URL["0"]}}' alt="">
+          <div class="details"><a href='{{item.ItemLinks["0"].ItemLink["0"].URL["0"]}}'> Amazon's page</a>
+          </div>
+          <button class="btn active addButton animated jello" type="button" ng-click="sc.saveItem(item)">add to watchlist</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+
 
 </template>
 
@@ -80,10 +142,10 @@
 		},
 
 		created() {
-			this.$service = new Service("counter", this); 
-			
+			this.$service = new Service("counter", this);
+
 			// Get the latest value of counter
-			this.getValue(); 
+			this.getValue();
 		}
 	};
 

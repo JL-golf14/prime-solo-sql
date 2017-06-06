@@ -1,9 +1,9 @@
 <template lang="pug">
 	.logo
 		a.nav-item(href="#")
-			span 
-				strong VEM
-				| App
+			span
+				strong AZON
+				| $$$
 </template>
 
 <script>
@@ -11,7 +11,7 @@
 	export default {
 
 	};
-	
+
 </script>
 
 <style lang="scss">

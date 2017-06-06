@@ -76,12 +76,15 @@ let UserSchema = new Schema({
 		type: String,
 		"default": "local"
 	},
+	clearanceLevel:
+	{ type: Number
+	},
 	profile: {
 		name: { type: String },
 		gender: { type: String },
 		picture: { type: String },
-		location: { type: String }		
-	},	
+		location: { type: String }
+	},
 	socialLinks: {
 		facebook: { type: String, unique: true, sparse: true },
 		twitter: { type: String, unique: true, sparse: true },
@@ -103,14 +106,14 @@ let UserSchema = new Schema({
 	},
 	resetPasswordToken: String,
 	resetPasswordExpires: Date,
-	
-	verified: { 
-		type: Boolean, 
-		default: false 
+
+	verified: {
+		type: Boolean,
+		default: false
 	},
 
-	verifyToken: { 
-		type: String 
+	verifyToken: {
+		type: String
 	},
 
 	apiKey: {
@@ -132,7 +135,7 @@ let UserSchema = new Schema({
 		type: Number,
 		default: 1
 	},
-	
+
 	metadata: {}
 
 }, schemaOptions);
@@ -157,9 +160,9 @@ UserSchema.plugin(autoIncrement.plugin, {
  */
 UserSchema.pre("save", function(next) {
 	let user = this;
-	if (!user.isModified("password")) 
+	if (!user.isModified("password"))
 		return next();
-	
+
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(user.password, salt, null, function(err, hash) {
 			user.password = hash;
@@ -188,7 +191,7 @@ UserSchema.virtual("avatar").get(function() {
 	// Generate a gravatar picture
 	if (!this.email)
 		return "https://gravatar.com/avatar/?s=64&d=wavatar";
-	
+
 	let md5 = crypto.createHash("md5").update(this.email).digest("hex");
 	return "https://gravatar.com/avatar/" + md5 + "?s=64&d=wavatar";
 });
@@ -208,8 +211,8 @@ UserSchema.methods.decodeID = function(code) {
 };
 
 /**
- * Pick is only some fields of object 
- * 
+ * Pick is only some fields of object
+ *
  * http://mongoosejs.com/docs/api.html#document_Document-toObject
  *
 UserSchema.methods.pick = function(props, model) {
@@ -221,7 +224,7 @@ UserSchema.methods.pick = function(props, model) {
 		"roles",
 		"lastLogin",
 		"avatar"
-	]);	
+	]);
 };
 
 UserSchema.method('toJSON', function() {
